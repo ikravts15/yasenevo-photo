@@ -1,0 +1,14 @@
+# Служебные файлы macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Служебные файлы Windows
+Thumbs.db
+desktop.ini
+
+# Локальные файлы редакторов
+*.swp
+*~
