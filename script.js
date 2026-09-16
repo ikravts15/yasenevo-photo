@@ -92,6 +92,89 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   bgVideos.forEach((video) => videoObserver.observe(video));
 }
 
+// Видео-карточки портфолио: превью в сетке и просмотр по клику
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const shotVideos = document.querySelectorAll('.shot__media');
+
+const previewObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    const video = entry.target;
+
+    if (entry.isIntersecting) {
+      const played = video.play();
+      if (played) played.catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+}, { rootMargin: '100px 0px', threshold: 0.2 });
+
+shotVideos.forEach((video) => {
+  if (reducedMotion) {
+    // Без анимации показываем только первый кадр
+    video.preload = 'metadata';
+    video.load();
+    return;
+  }
+
+  previewObserver.observe(video);
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxVideo = document.getElementById('lightboxVideo');
+const lightboxTitle = document.getElementById('lightboxTitle');
+const lightboxClose = document.getElementById('lightboxClose');
+let lastFocused = null;
+let pausedPreviews = [];
+
+const openLightbox = (card) => {
+  const source = card.querySelector('.shot__media');
+  const title = card.querySelector('.shot__caption strong');
+
+  lastFocused = document.activeElement;
+  pausedPreviews = [...shotVideos].filter((video) => !video.paused);
+  pausedPreviews.forEach((video) => video.pause());
+
+  lightboxVideo.src = source.getAttribute('src');
+  lightboxTitle.textContent = title.textContent;
+  lightbox.hidden = false;
+  document.body.classList.add('is-locked');
+  lightboxClose.focus();
+
+  const played = lightboxVideo.play();
+  if (played) played.catch(() => {});
+};
+
+const closeLightbox = () => {
+  lightboxVideo.pause();
+  lightboxVideo.removeAttribute('src');
+  lightboxVideo.load();
+  lightbox.hidden = true;
+  document.body.classList.remove('is-locked');
+
+  pausedPreviews.forEach((video) => {
+    const played = video.play();
+    if (played) played.catch(() => {});
+  });
+  pausedPreviews = [];
+
+  if (lastFocused) lastFocused.focus();
+};
+
+document.querySelectorAll('.shot__open').forEach((btn) => {
+  btn.addEventListener('click', () => openLightbox(btn.closest('.shot')));
+});
+
+lightboxClose.addEventListener('click', closeLightbox);
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.hidden && e.key === 'Escape') closeLightbox();
+});
+
 // Форма: пока только проверка полей, без отправки
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
