@@ -25,6 +25,26 @@ navLinks.addEventListener('click', (e) => {
 // Фильтр портфолио
 const filters = document.querySelectorAll('.filter');
 const shots = document.querySelectorAll('.shot');
+const aerialSubs = document.getElementById('aerialSubs');
+const subfilters = document.querySelectorAll('.subfilter');
+let currentFilter = 'all';
+let currentSubfilter = '';
+
+const applyGalleryFilter = () => {
+  shots.forEach((shot) => {
+    const byCategory = currentFilter === 'all' || shot.dataset.category === currentFilter;
+    const bySeries = !currentSubfilter || shot.dataset.series === currentSubfilter;
+    shot.hidden = !(byCategory && bySeries);
+  });
+};
+
+const resetSubfilters = () => {
+  currentSubfilter = '';
+  subfilters.forEach((btn) => {
+    btn.classList.remove('is-active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+};
 
 filters.forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -34,10 +54,28 @@ filters.forEach((btn) => {
       b.setAttribute('aria-selected', String(active));
     });
 
-    const value = btn.dataset.filter;
-    shots.forEach((shot) => {
-      shot.hidden = value !== 'all' && shot.dataset.category !== value;
-    });
+    currentFilter = btn.dataset.filter;
+    const showAerialSubs = currentFilter === 'aerial';
+    aerialSubs.hidden = !showAerialSubs;
+
+    // Повторный клик по «Аэросъёмка» снимает подкатегорию — снова видны все кадры раздела
+    resetSubfilters();
+    applyGalleryFilter();
+  });
+});
+
+subfilters.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const already = btn.classList.contains('is-active');
+    resetSubfilters();
+
+    if (!already) {
+      currentSubfilter = btn.dataset.subfilter;
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+    }
+
+    applyGalleryFilter();
   });
 });
 

@@ -385,6 +385,37 @@ section { padding: 104px 0; }
   background: var(--accent-soft);
 }
 
+.subfilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -20px 0 36px;
+  padding-left: 14px;
+}
+
+.subfilters[hidden] { display: none; }
+
+.subfilter {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: .04em;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+}
+
+.subfilter:hover { color: var(--text); border-color: var(--muted); }
+
+.subfilter.is-active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
