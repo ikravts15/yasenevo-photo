@@ -12,7 +12,7 @@
 <meta property="og:title" content="Портфолио — Николай Ефанов">
 <meta property="og:description" content="Портреты, события, предметная съёмка и аэросъёмка с дрона. Серия Кинопарк Москино.">
 <meta property="og:image" content="https://ikravts15.github.io/yasenevo-photo/images/og-preview.jpg">
-<link rel="stylesheet" href="style.css?v=event-folders">
+<link rel="stylesheet" href="style.css?v=conference-grid">
 </head>
 <body class="page-portfolio">
 
@@ -82,6 +82,9 @@
             <video class="folder__media" src="videos/family-1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
             <span class="folder__caption"><strong>Семейные съёмки</strong><span>Открыть</span></span>
           </button>
+          <button class="folder" type="button" data-go="conference" data-stub hidden aria-label="Конференция, материалы появятся позже">
+            <span class="folder__caption"><strong>Конференция</strong><span>Скоро</span></span>
+          </button>
         </div>
 
         <div class="gallery" id="gallery" hidden>
@@ -90,9 +93,6 @@
           </figure>
           <figure class="shot" data-category="portrait" role="img" aria-label="Портрет на локации: съёмка на улице при естественном свете">
             <figcaption class="shot__caption"><strong>Портрет на локации</strong><span>Портретная съёмка</span></figcaption>
-          </figure>
-          <figure class="shot" data-category="event" role="img" aria-label="Конференция: спикер на сцене и работа зала в репортажной съёмке">
-            <figcaption class="shot__caption"><strong>Конференция</strong><span>Репортаж и события</span></figcaption>
           </figure>
           <figure class="shot shot--video" data-category="event" data-series="corporate" data-full="videos/event-4-full.mp4" data-title="Корпоративное событие — День рождения">
             <video class="shot__media" src="videos/event-4-preview.mp4" muted loop playsinline preload="none" aria-label="Видео: семейный день рождения ребёнка"></video>
@@ -219,7 +219,7 @@
   </div>
 </div>
 
-<script src="script.js?v=event-folders"></script>
+<script src="script.js?v=conference-grid"></script>
 
 </body>
 </html>

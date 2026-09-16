@@ -44,8 +44,7 @@ if (explorer) {
     event: {
       title: 'Репортаж и события',
       lead: 'Выберите проект.',
-      folders: ['corporate', 'wedding', 'family'],
-      category: 'event',
+      folders: ['corporate', 'wedding', 'family', 'conference'],
       parent: 'root',
       crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'event', label: 'Репортаж и события' }]
     },
@@ -232,7 +231,10 @@ if (explorer) {
   };
 
   folderButtons.forEach((btn) => {
-    btn.addEventListener('click', () => goTo(btn.dataset.go));
+    btn.addEventListener('click', () => {
+      if (btn.hasAttribute('data-stub')) return;
+      goTo(btn.dataset.go);
+    });
   });
 
   backBtn.addEventListener('click', () => {
