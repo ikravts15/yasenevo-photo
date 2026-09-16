@@ -22,77 +22,196 @@ navLinks.addEventListener('click', (e) => {
   }
 });
 
-// Фильтр портфолио
-const filters = document.querySelectorAll('.filter');
-const shots = document.querySelectorAll('.shot');
-const aerialSubs = document.getElementById('aerialSubs');
-const subfilters = document.querySelectorAll('.subfilter');
-let currentFilter = 'all';
-let currentSubfilter = '';
+// Проводник портфолио: папки → проекты → карточки
+const explorer = document.getElementById('explorer');
 
-const applyGalleryFilter = () => {
-  shots.forEach((shot) => {
-    const byCategory = currentFilter === 'all' || shot.dataset.category === currentFilter;
-    const bySeries = !currentSubfilter || shot.dataset.series === currentSubfilter;
-    shot.hidden = !(byCategory && bySeries);
-  });
-};
+if (explorer) {
+  const views = {
+    root: {
+      title: 'Избранные работы',
+      lead: 'Выберите направление, чтобы посмотреть подходящие кадры.',
+      folders: ['portrait', 'event', 'product', 'aerial'],
+      parent: null,
+      crumbs: [{ id: 'root', label: 'Портфолио' }]
+    },
+    portrait: {
+      title: 'Портреты',
+      lead: 'Студийные и локационные портреты.',
+      category: 'portrait',
+      parent: 'root',
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'portrait', label: 'Портреты' }]
+    },
+    event: {
+      title: 'События',
+      lead: 'Репортаж с мероприятий и корпоративов.',
+      category: 'event',
+      parent: 'root',
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'event', label: 'События' }]
+    },
+    product: {
+      title: 'Предметная съёмка',
+      lead: 'Каталоги, украшения и съёмка для брендов.',
+      category: 'product',
+      parent: 'root',
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'product', label: 'Предметная съёмка' }]
+    },
+    aerial: {
+      title: 'Аэросъёмка',
+      lead: 'Выберите проект.',
+      folders: ['moskino'],
+      parent: 'root',
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'aerial', label: 'Аэросъёмка' }]
+    },
+    moskino: {
+      title: 'Москино',
+      lead: 'Кинопарк Москино: декорации с воздуха и с земли.',
+      series: 'moskino',
+      parent: 'aerial',
+      crumbs: [
+        { id: 'root', label: 'Портфолио' },
+        { id: 'aerial', label: 'Аэросъёмка' },
+        { id: 'moskino', label: 'Москино' }
+      ]
+    }
+  };
 
-const resetSubfilters = () => {
-  currentSubfilter = '';
-  subfilters.forEach((btn) => {
-    btn.classList.remove('is-active');
-    btn.setAttribute('aria-selected', 'false');
-  });
-};
+  const hashes = {
+    root: '',
+    portrait: 'portrait',
+    event: 'event',
+    product: 'product',
+    aerial: 'aerial',
+    moskino: 'aerial/moskino'
+  };
 
-filters.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    filters.forEach((b) => {
-      const active = b === btn;
-      b.classList.toggle('is-active', active);
-      b.setAttribute('aria-selected', String(active));
+  const foldersWrap = document.getElementById('folders');
+  const gallery = document.getElementById('gallery');
+  const shots = document.querySelectorAll('.shot');
+  const folderButtons = document.querySelectorAll('.folder');
+  const backBtn = document.getElementById('explorerBack');
+  const crumbsPath = document.getElementById('crumbsPath');
+  const titleEl = document.getElementById('explorerTitle');
+  const leadEl = document.getElementById('explorerLead');
+  let currentView = 'root';
+
+  const viewFromHash = () => {
+    const hash = location.hash.replace(/^#/, '');
+    if (hash === 'aerial/moskino' || hash === 'moskino') return 'moskino';
+    if (views[hash]) return hash;
+    return 'root';
+  };
+
+  const playVisibleMedia = (selector) => {
+    document.querySelectorAll(selector).forEach((video) => {
+      const tile = video.closest('.folder, .shot');
+      if (!tile || tile.hidden || (tile.parentElement && tile.parentElement.hidden)) {
+        video.pause();
+        return;
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const played = video.play();
+      if (played) played.catch(() => {});
+    });
+  };
+
+  const renderView = (id) => {
+    const view = views[id] || views.root;
+    currentView = view === views.root ? 'root' : id;
+
+    titleEl.textContent = view.title;
+    leadEl.textContent = view.lead;
+    backBtn.hidden = !view.parent;
+
+    const showFolders = Boolean(view.folders);
+    foldersWrap.hidden = !showFolders;
+    folderButtons.forEach((btn) => {
+      btn.hidden = !(showFolders && view.folders.includes(btn.dataset.go));
     });
 
-    currentFilter = btn.dataset.filter;
-    const showAerialSubs = currentFilter === 'aerial';
-    aerialSubs.hidden = !showAerialSubs;
+    const showShots = Boolean(view.category || view.series);
+    gallery.hidden = !showShots;
+    shots.forEach((shot) => {
+      if (view.series) {
+        shot.hidden = shot.dataset.series !== view.series;
+      } else if (view.category) {
+        shot.hidden = shot.dataset.category !== view.category;
+      } else {
+        shot.hidden = true;
+      }
+    });
 
-    // Повторный клик по «Аэросъёмка» снимает подкатегорию — снова видны все кадры раздела
-    resetSubfilters();
-    applyGalleryFilter();
-  });
-});
+    crumbsPath.replaceChildren();
+    view.crumbs.forEach((crumb, index) => {
+      if (index) {
+        const sep = document.createElement('span');
+        sep.setAttribute('aria-hidden', 'true');
+        sep.textContent = '/';
+        crumbsPath.append(sep);
+      }
 
-subfilters.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const already = btn.classList.contains('is-active');
-    resetSubfilters();
+      const last = index === view.crumbs.length - 1;
+      if (last) {
+        const current = document.createElement('span');
+        current.textContent = crumb.label;
+        current.setAttribute('aria-current', 'page');
+        crumbsPath.append(current);
+      } else {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = crumb.label;
+        btn.addEventListener('click', () => goTo(crumb.id));
+        crumbsPath.append(btn);
+      }
+    });
 
-    if (!already) {
-      currentSubfilter = btn.dataset.subfilter;
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-selected', 'true');
+    playVisibleMedia('.folder__media, .shot__media');
+  };
+
+  const goTo = (id) => {
+    const hash = hashes[id] || '';
+
+    if (hash) {
+      if (location.hash.replace(/^#/, '') !== hash) location.hash = hash;
+      else renderView(id);
+      return;
     }
 
-    applyGalleryFilter();
+    if (location.hash) {
+      history.pushState('', document.title, location.pathname + location.search);
+    }
+
+    renderView('root');
+  };
+
+  folderButtons.forEach((btn) => {
+    btn.addEventListener('click', () => goTo(btn.dataset.go));
   });
-});
+
+  backBtn.addEventListener('click', () => {
+    const parent = (views[currentView] || views.root).parent;
+    goTo(parent || 'root');
+  });
+
+  window.addEventListener('hashchange', () => renderView(viewFromHash()));
+  renderView(viewFromHash());
+}
 
 // Активный пункт меню по видимой секции
-const sections = document.querySelectorAll('main section[id]');
-const menuLinks = navLinks.querySelectorAll('a');
+if (!document.body.classList.contains('page-portfolio')) {
+  const sections = document.querySelectorAll('main section[id]');
+  const menuLinks = navLinks.querySelectorAll('a');
 
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-    menuLinks.forEach((link) => {
-      link.classList.toggle('is-active', link.hash === '#' + entry.target.id);
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      menuLinks.forEach((link) => {
+        link.classList.toggle('is-active', link.hash === '#' + entry.target.id);
+      });
     });
-  });
-}, { rootMargin: '-45% 0px -50% 0px' });
+  }, { rootMargin: '-45% 0px -50% 0px' });
 
-sections.forEach((s) => sectionObserver.observe(s));
+  sections.forEach((s) => sectionObserver.observe(s));
+}
 
 // Плавное появление блоков
 const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -158,82 +277,96 @@ shotVideos.forEach((video) => {
   previewObserver.observe(video);
 });
 
-const lightbox = document.getElementById('lightbox');
-const lightboxVideo = document.getElementById('lightboxVideo');
-const lightboxTitle = document.getElementById('lightboxTitle');
-const lightboxClose = document.getElementById('lightboxClose');
-let lastFocused = null;
-let pausedPreviews = [];
-
-const openLightbox = (card) => {
-  const source = card.querySelector('.shot__media');
-  const title = card.querySelector('.shot__caption strong');
-
-  lastFocused = document.activeElement;
-  pausedPreviews = [...shotVideos].filter((video) => !video.paused);
-  pausedPreviews.forEach((video) => video.pause());
-
-  // В карточке крутится короткий отрывок, в просмотре — полная версия со звуком
-  lightboxVideo.src = card.dataset.full || source.getAttribute('src');
-  lightboxTitle.textContent = card.dataset.title || title.textContent;
-  lightbox.hidden = false;
-  document.body.classList.add('is-locked');
-  lightboxClose.focus();
-
-  lightboxVideo.muted = false;
-  const played = lightboxVideo.play();
-
-  if (played) {
-    played.catch(() => {
-      // Если браузер запретил звук без жеста — играем без него, звук вернёт кнопка в плеере
-      lightboxVideo.muted = true;
-      lightboxVideo.play().catch(() => {});
-    });
+document.querySelectorAll('.folder__media').forEach((video) => {
+  if (reducedMotion) {
+    video.preload = 'metadata';
+    video.load();
+    return;
   }
-};
 
-const closeLightbox = () => {
-  lightboxVideo.pause();
-  lightboxVideo.removeAttribute('src');
-  lightboxVideo.load();
-  lightbox.hidden = true;
-  document.body.classList.remove('is-locked');
+  previewObserver.observe(video);
+});
 
-  pausedPreviews.forEach((video) => {
-    const played = video.play();
-    if (played) played.catch(() => {});
+const lightbox = document.getElementById('lightbox');
+
+if (lightbox) {
+  const lightboxVideo = document.getElementById('lightboxVideo');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxClose = document.getElementById('lightboxClose');
+  let lastFocused = null;
+  let pausedPreviews = [];
+
+  const openLightbox = (card) => {
+    const source = card.querySelector('.shot__media');
+    const title = card.querySelector('.shot__caption strong');
+
+    lastFocused = document.activeElement;
+    pausedPreviews = [...shotVideos].filter((video) => !video.paused);
+    pausedPreviews.forEach((video) => video.pause());
+
+    // В карточке крутится короткий отрывок, в просмотре — полная версия со звуком
+    lightboxVideo.src = card.dataset.full || source.getAttribute('src');
+    lightboxTitle.textContent = card.dataset.title || title.textContent;
+    lightbox.hidden = false;
+    document.body.classList.add('is-locked');
+    lightboxClose.focus();
+
+    lightboxVideo.muted = false;
+    const played = lightboxVideo.play();
+
+    if (played) {
+      played.catch(() => {
+        lightboxVideo.muted = true;
+        lightboxVideo.play().catch(() => {});
+      });
+    }
+  };
+
+  const closeLightbox = () => {
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+    lightbox.hidden = true;
+    document.body.classList.remove('is-locked');
+
+    pausedPreviews.forEach((video) => {
+      const played = video.play();
+      if (played) played.catch(() => {});
+    });
+    pausedPreviews = [];
+
+    if (lastFocused) lastFocused.focus();
+  };
+
+  document.querySelectorAll('.shot__open').forEach((btn) => {
+    btn.addEventListener('click', () => openLightbox(btn.closest('.shot')));
   });
-  pausedPreviews = [];
 
-  if (lastFocused) lastFocused.focus();
-};
+  lightboxClose.addEventListener('click', closeLightbox);
 
-document.querySelectorAll('.shot__open').forEach((btn) => {
-  btn.addEventListener('click', () => openLightbox(btn.closest('.shot')));
-});
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
 
-lightboxClose.addEventListener('click', closeLightbox);
-
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (!lightbox.hidden && e.key === 'Escape') closeLightbox();
-});
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.hidden && e.key === 'Escape') closeLightbox();
+  });
+}
 
 // Форма: пока только проверка полей, без отправки
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const data = new FormData(form);
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
 
-  if (!String(data.get('name')).trim() || !String(data.get('contact')).trim()) {
-    status.textContent = 'Заполните имя и контакт для связи.';
-    return;
-  }
+    if (!String(data.get('name')).trim() || !String(data.get('contact')).trim()) {
+      status.textContent = 'Заполните имя и контакт для связи.';
+      return;
+    }
 
-  status.textContent = 'Форма заполнена. Отправка будет подключена позже.';
-});
+    status.textContent = 'Форма заполнена. Отправка будет подключена позже.';
+  });
+}
