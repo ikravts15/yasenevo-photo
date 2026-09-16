@@ -550,6 +550,8 @@ section { padding: 104px 0; }
 
 .gallery[hidden] { display: none; }
 
+.folders:not([hidden]) + .gallery:not([hidden]) { margin-top: 20px; }
+
 .shot {
   position: relative;
   border: 1px solid var(--line);

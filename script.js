@@ -43,7 +43,8 @@ if (explorer) {
     },
     event: {
       title: 'Репортаж и события',
-      lead: 'Репортаж с мероприятий и корпоративов.',
+      lead: 'Выберите проект.',
+      folders: ['corporate', 'wedding', 'family'],
       category: 'event',
       parent: 'root',
       crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'event', label: 'Репортаж и события' }]
@@ -79,6 +80,39 @@ if (explorer) {
         { id: 'aerial', label: 'Аэросъёмка с дрона' },
         { id: 'moskino', label: 'Москино' }
       ]
+    },
+    corporate: {
+      title: 'Корпоративное событие',
+      lead: 'Репортаж с мероприятий и корпоративов.',
+      series: 'corporate',
+      parent: 'event',
+      crumbs: [
+        { id: 'root', label: 'Портфолио' },
+        { id: 'event', label: 'Репортаж и события' },
+        { id: 'corporate', label: 'Корпоративное событие' }
+      ]
+    },
+    wedding: {
+      title: 'Свадебный репортаж',
+      lead: 'Свадьба и свадебное путешествие.',
+      series: 'wedding',
+      parent: 'event',
+      crumbs: [
+        { id: 'root', label: 'Портфолио' },
+        { id: 'event', label: 'Репортаж и события' },
+        { id: 'wedding', label: 'Свадебный репортаж' }
+      ]
+    },
+    family: {
+      title: 'Семейные съёмки',
+      lead: 'Живые кадры семьи — дома, в поездке и у костра.',
+      series: 'family',
+      parent: 'event',
+      crumbs: [
+        { id: 'root', label: 'Портфолио' },
+        { id: 'event', label: 'Репортаж и события' },
+        { id: 'family', label: 'Семейные съёмки' }
+      ]
     }
   };
 
@@ -89,7 +123,10 @@ if (explorer) {
     product: 'product',
     commercial: 'commercial',
     aerial: 'aerial',
-    moskino: 'aerial/moskino'
+    moskino: 'aerial/moskino',
+    corporate: 'event/corporate',
+    wedding: 'event/wedding',
+    family: 'event/family'
   };
 
   const foldersWrap = document.getElementById('folders');
@@ -105,6 +142,9 @@ if (explorer) {
   const viewFromHash = () => {
     const hash = location.hash.replace(/^#/, '');
     if (hash === 'aerial/moskino' || hash === 'moskino') return 'moskino';
+    if (hash === 'event/corporate' || hash === 'corporate') return 'corporate';
+    if (hash === 'event/wedding' || hash === 'wedding') return 'wedding';
+    if (hash === 'event/family' || hash === 'family') return 'family';
     if (views[hash]) return hash;
     return 'root';
   };
@@ -142,7 +182,7 @@ if (explorer) {
       if (view.series) {
         shot.hidden = shot.dataset.series !== view.series;
       } else if (view.category) {
-        shot.hidden = shot.dataset.category !== view.category;
+        shot.hidden = shot.dataset.category !== view.category || Boolean(shot.dataset.series);
       } else {
         shot.hidden = true;
       }
