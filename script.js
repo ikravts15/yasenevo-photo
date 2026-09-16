@@ -30,7 +30,7 @@ if (explorer) {
     root: {
       title: 'Избранные работы',
       lead: 'Выберите направление, чтобы посмотреть подходящие кадры.',
-      folders: ['portrait', 'event', 'product', 'commercial', 'aerial'],
+      folders: ['portrait', 'event', 'product', 'commercial', 'family', 'aerial'],
       parent: null,
       crumbs: [{ id: 'root', label: 'Портфолио' }]
     },
@@ -62,6 +62,13 @@ if (explorer) {
       parent: 'root',
       crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'commercial', label: 'Коммерческая съёмка' }]
     },
+    family: {
+      title: 'Семейная съёмка',
+      lead: 'Живые кадры семьи — дома, в поездке и у костра.',
+      category: 'family',
+      parent: 'root',
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'family', label: 'Семейная съёмка' }]
+    },
     aerial: {
       title: 'Аэросъёмка',
       lead: 'Выберите проект.',
@@ -88,6 +95,7 @@ if (explorer) {
     event: 'event',
     product: 'product',
     commercial: 'commercial',
+    family: 'family',
     aerial: 'aerial',
     moskino: 'aerial/moskino'
   };
