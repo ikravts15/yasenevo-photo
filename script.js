@@ -30,23 +30,23 @@ if (explorer) {
     root: {
       title: 'Избранные работы',
       lead: 'Выберите направление, чтобы посмотреть подходящие кадры.',
-      folders: ['portrait', 'event', 'product', 'commercial', 'family', 'aerial'],
+      folders: ['commercial', 'event', 'aerial', 'portrait', 'product'],
       parent: null,
       crumbs: [{ id: 'root', label: 'Портфолио' }]
     },
     portrait: {
-      title: 'Портреты',
+      title: 'Портретная съёмка',
       lead: 'Студийные и локационные портреты.',
       category: 'portrait',
       parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'portrait', label: 'Портреты' }]
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'portrait', label: 'Портретная съёмка' }]
     },
     event: {
-      title: 'События',
+      title: 'Репортаж и события',
       lead: 'Репортаж с мероприятий и корпоративов.',
       category: 'event',
       parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'event', label: 'События' }]
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'event', label: 'Репортаж и события' }]
     },
     product: {
       title: 'Предметная съёмка',
@@ -62,19 +62,12 @@ if (explorer) {
       parent: 'root',
       crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'commercial', label: 'Коммерческая съёмка' }]
     },
-    family: {
-      title: 'Семейная съёмка',
-      lead: 'Живые кадры семьи — дома, в поездке и у костра.',
-      category: 'family',
-      parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'family', label: 'Семейная съёмка' }]
-    },
     aerial: {
-      title: 'Аэросъёмка',
+      title: 'Аэросъёмка с дрона',
       lead: 'Выберите проект.',
       folders: ['moskino'],
       parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'aerial', label: 'Аэросъёмка' }]
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'aerial', label: 'Аэросъёмка с дрона' }]
     },
     moskino: {
       title: 'Москино',
@@ -83,7 +76,7 @@ if (explorer) {
       parent: 'aerial',
       crumbs: [
         { id: 'root', label: 'Портфолио' },
-        { id: 'aerial', label: 'Аэросъёмка' },
+        { id: 'aerial', label: 'Аэросъёмка с дрона' },
         { id: 'moskino', label: 'Москино' }
       ]
     }
@@ -95,7 +88,6 @@ if (explorer) {
     event: 'event',
     product: 'product',
     commercial: 'commercial',
-    family: 'family',
     aerial: 'aerial',
     moskino: 'aerial/moskino'
   };

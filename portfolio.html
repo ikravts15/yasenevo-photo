@@ -49,26 +49,22 @@
 
       <div class="explorer" id="explorer">
         <div class="folders" id="folders">
-          <button class="folder" type="button" data-go="portrait">
-            <span class="folder__caption"><strong>Портреты</strong><span>Открыть</span></span>
-          </button>
-          <button class="folder" type="button" data-go="event">
-            <span class="folder__caption"><strong>События</strong><span>Открыть</span></span>
-          </button>
-          <button class="folder" type="button" data-go="product">
-            <span class="folder__caption"><strong>Предметная съёмка</strong><span>Открыть</span></span>
-          </button>
           <button class="folder" type="button" data-go="commercial">
             <video class="folder__media" src="videos/commercial-1-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
             <span class="folder__caption"><strong>Коммерческая съёмка</strong><span>Открыть</span></span>
           </button>
-          <button class="folder" type="button" data-go="family">
-            <video class="folder__media" src="videos/family-1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="folder__caption"><strong>Семейная съёмка</strong><span>Открыть</span></span>
+          <button class="folder" type="button" data-go="event">
+            <span class="folder__caption"><strong>Репортаж и события</strong><span>Открыть</span></span>
           </button>
           <button class="folder" type="button" data-go="aerial">
             <video class="folder__media" src="videos/aerial-3.mp4" muted autoplay loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="folder__caption"><strong>Аэросъёмка</strong><span>Проекты</span></span>
+            <span class="folder__caption"><strong>Аэросъёмка с дрона</strong><span>Проекты</span></span>
+          </button>
+          <button class="folder" type="button" data-go="portrait">
+            <span class="folder__caption"><strong>Портретная съёмка</strong><span>Открыть</span></span>
+          </button>
+          <button class="folder" type="button" data-go="product">
+            <span class="folder__caption"><strong>Предметная съёмка</strong><span>Открыть</span></span>
           </button>
           <button class="folder" type="button" data-go="moskino" hidden>
             <video class="folder__media" src="videos/aerial-6.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
@@ -78,38 +74,45 @@
 
         <div class="gallery" id="gallery" hidden>
           <figure class="shot" data-category="portrait" role="img" aria-label="Студийный портрет: портретная съёмка в студии с мягким постановочным светом">
-            <figcaption class="shot__caption"><strong>Студийный портрет</strong><span>Портреты</span></figcaption>
+            <figcaption class="shot__caption"><strong>Студийный портрет</strong><span>Портретная съёмка</span></figcaption>
           </figure>
           <figure class="shot" data-category="portrait" role="img" aria-label="Портрет на локации: съёмка на улице при естественном свете">
-            <figcaption class="shot__caption"><strong>Портрет на локации</strong><span>Портреты</span></figcaption>
-          </figure>
-          <figure class="shot shot--video" data-category="portrait" data-full="videos/portrait-1-full.mp4" data-title="Портреты — Свадьба">
-            <video class="shot__media" src="videos/portrait-1.mp4" muted loop playsinline preload="none" aria-label="Видео: свадьба и свадебное путешествие, короткий отрывок"></video>
-            <figcaption class="shot__caption"><strong>Свадьба и свадебное путешествие</strong><span>Портреты</span></figcaption>
-            <button class="shot__open" type="button" aria-label="Открыть полное видео: свадьба и свадебное путешествие">
-              <span class="shot__play" aria-hidden="true"></span>
-            </button>
+            <figcaption class="shot__caption"><strong>Портрет на локации</strong><span>Портретная съёмка</span></figcaption>
           </figure>
           <figure class="shot" data-category="event" role="img" aria-label="Корпоративное событие: репортажные кадры с делового мероприятия">
-            <figcaption class="shot__caption"><strong>Корпоративное событие</strong><span>События</span></figcaption>
+            <figcaption class="shot__caption"><strong>Корпоративное событие</strong><span>Репортаж и события</span></figcaption>
           </figure>
           <figure class="shot" data-category="event" role="img" aria-label="Свадебный репортаж: живые кадры со свадебного дня без постановки">
-            <figcaption class="shot__caption"><strong>Свадебный репортаж</strong><span>События</span></figcaption>
+            <figcaption class="shot__caption"><strong>Свадебный репортаж</strong><span>Репортаж и события</span></figcaption>
           </figure>
           <figure class="shot" data-category="event" role="img" aria-label="Конференция: спикер на сцене и работа зала в репортажной съёмке">
-            <figcaption class="shot__caption"><strong>Конференция</strong><span>События</span></figcaption>
+            <figcaption class="shot__caption"><strong>Конференция</strong><span>Репортаж и события</span></figcaption>
           </figure>
-          <figure class="shot shot--video" data-category="event" data-full="videos/event-4-full.mp4" data-title="События — День рождения">
+          <figure class="shot shot--video" data-category="event" data-full="videos/event-4-full.mp4" data-title="Репортаж и события — День рождения">
             <video class="shot__media" src="videos/event-4-preview.mp4" muted loop playsinline preload="none" aria-label="Видео: семейный день рождения ребёнка"></video>
-            <figcaption class="shot__caption"><strong>Семейный праздник</strong><span>События</span></figcaption>
+            <figcaption class="shot__caption"><strong>Семейный праздник</strong><span>Репортаж и события</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: день рождения">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="event" data-full="videos/event-5-full.mp4" data-title="События — Клуб">
+          <figure class="shot shot--video" data-category="event" data-full="videos/event-5-full.mp4" data-title="Репортаж и события — Клуб">
             <video class="shot__media" src="videos/event-5-preview.mp4" muted loop playsinline preload="none" aria-label="Видео: атмосфера клуба и диско-шар"></video>
-            <figcaption class="shot__caption"><strong>Атмосфера клуба</strong><span>События</span></figcaption>
+            <figcaption class="shot__caption"><strong>Атмосфера клуба</strong><span>Репортаж и события</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: атмосфера клуба">
+              <span class="shot__play" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="shot shot--video" data-category="event" data-full="videos/portrait-1-full.mp4" data-title="Репортаж и события — Свадьба">
+            <video class="shot__media" src="videos/portrait-1.mp4" muted loop playsinline preload="none" aria-label="Видео: свадьба и свадебное путешествие, короткий отрывок"></video>
+            <figcaption class="shot__caption"><strong>Свадьба и свадебное путешествие</strong><span>Репортаж и события</span></figcaption>
+            <button class="shot__open" type="button" aria-label="Открыть полное видео: свадьба и свадебное путешествие">
+              <span class="shot__play" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="shot shot--video" data-category="event" data-full="videos/family-1-full.mp4" data-title="Репортаж и события — У костра">
+            <video class="shot__media" src="videos/family-1.mp4" muted loop playsinline preload="none" aria-label="Видео: семья у воды и костра"></video>
+            <figcaption class="shot__caption"><strong>У воды и костра</strong><span>Репортаж и события</span></figcaption>
+            <button class="shot__open" type="button" aria-label="Открыть полное видео: семья у костра">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
@@ -129,56 +132,49 @@
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="family" data-full="videos/family-1-full.mp4" data-title="Семейная съёмка — У костра">
-            <video class="shot__media" src="videos/family-1.mp4" muted loop playsinline preload="none" aria-label="Видео: семья у воды и костра"></video>
-            <figcaption class="shot__caption"><strong>У воды и костра</strong><span>Семейная съёмка</span></figcaption>
-            <button class="shot__open" type="button" aria-label="Открыть полное видео: семья у костра">
-              <span class="shot__play" aria-hidden="true"></span>
-            </button>
-          </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/aeroport-full.mp4" data-title="Аэросъёмка — Аэропорт">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/aeroport-full.mp4" data-title="Аэросъёмка с дрона — Аэропорт">
             <video class="shot__media" src="videos/aerial-5.mp4" muted loop playsinline preload="none" aria-label="Видео: декорация аэропорта с высоты, съёмка с дрона"></video>
             <figcaption class="shot__caption"><strong>Декорация аэропорта</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Аэропорт">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/arkanar-full.mp4" data-title="Аэросъёмка — Арканар">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/arkanar-full.mp4" data-title="Аэросъёмка с дрона — Арканар">
             <video class="shot__media" src="videos/aerial-6.mp4" muted loop playsinline preload="none" aria-label="Видео: каменная крепость с воздуха, съёмка с дрона"></video>
             <figcaption class="shot__caption"><strong>Крепость Арканар</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Арканар">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/buratino-full.mp4" data-title="Аэросъёмка — Буратино">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/buratino-full.mp4" data-title="Аэросъёмка с дрона — Буратино">
             <video class="shot__media" src="videos/aerial-7.mp4" muted loop playsinline preload="none" aria-label="Видео: деревня с черепичными крышами с высоты, съёмка с дрона"></video>
             <figcaption class="shot__caption"><strong>Городок Буратино</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Буратино">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/knyaginaolga-full.mp4" data-title="Аэросъёмка — Княгиня Ольга">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/knyaginaolga-full.mp4" data-title="Аэросъёмка с дрона — Княгиня Ольга">
             <video class="shot__media" src="videos/aerial-8.mp4" muted loop playsinline preload="none" aria-label="Видео: древнерусское поселение с деревянными постройками с высоты"></video>
             <figcaption class="shot__caption"><strong>Княгиня Ольга</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Княгиня Ольга">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/gonzago-full.mp4" data-title="Аэросъёмка — Гонзаго">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/gonzago-full.mp4" data-title="Аэросъёмка с дрона — Гонзаго">
             <video class="shot__media" src="videos/product-1.mp4" muted loop playsinline preload="none" aria-label="Видео: театральный зал с красным занавесом и сценой"></video>
             <figcaption class="shot__caption"><strong>Театр Гонзаго</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Гонзаго">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/moskva-full.mp4" data-title="Аэросъёмка — Москва">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/moskva-full.mp4" data-title="Аэросъёмка с дрона — Москва">
             <video class="shot__media" src="videos/product-2.mp4" muted loop playsinline preload="none" aria-label="Видео: уличная декорация старого города после дождя"></video>
             <figcaption class="shot__caption"><strong>Старая Москва</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Москва">
               <span class="shot__play" aria-hidden="true"></span>
             </button>
           </figure>
-          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/vokzal-full.mp4" data-title="Аэросъёмка — Вокзал">
+          <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/vokzal-full.mp4" data-title="Аэросъёмка с дрона — Вокзал">
             <video class="shot__media" src="videos/product-3.mp4" muted loop playsinline preload="none" aria-label="Видео: фасад вокзала и перрон в декорациях"></video>
             <figcaption class="shot__caption"><strong>Вокзал</strong><span>Москино</span></figcaption>
             <button class="shot__open" type="button" aria-label="Открыть полное видео: аэросъёмка, Вокзал">
