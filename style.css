@@ -299,7 +299,7 @@ section { padding: 104px 0; }
 }
 
 .about__photo {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 2;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: linear-gradient(160deg, #26262c, #1a1a1e);
@@ -310,6 +310,14 @@ section { padding: 104px 0; }
   font-size: 12px;
   letter-spacing: .14em;
   text-transform: uppercase;
+  overflow: hidden;
+}
+
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about__text p {
@@ -638,6 +646,34 @@ section { padding: 104px 0; }
 
 .footer__links { display: flex; gap: 24px; }
 .footer__links a:hover { color: var(--accent); }
+
+/* ---------- Видео-фоны разделов ---------- */
+section { position: relative; overflow: hidden; }
+
+/* Контент поднимаем над видео */
+section > .wrap { position: relative; z-index: 1; }
+
+.section-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+.section-bg__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.section-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(14, 14, 16, .88), rgba(14, 14, 16, .78));
+}
 
 /* ---------- Появление при скролле ---------- */
 .reveal {

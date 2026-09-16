@@ -67,6 +67,31 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+// Фоновые видео: играет только то, чей раздел на экране
+const bgVideos = document.querySelectorAll('.section-bg__media');
+
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  bgVideos.forEach((video) => {
+    video.autoplay = false;
+    video.pause();
+  });
+} else {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target;
+
+      if (entry.isIntersecting) {
+        const played = video.play();
+        if (played) played.catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+
+  bgVideos.forEach((video) => videoObserver.observe(video));
+}
+
 // Форма: пока только проверка полей, без отправки
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
