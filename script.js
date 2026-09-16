@@ -135,14 +135,23 @@ const openLightbox = (card) => {
   pausedPreviews = [...shotVideos].filter((video) => !video.paused);
   pausedPreviews.forEach((video) => video.pause());
 
-  lightboxVideo.src = source.getAttribute('src');
-  lightboxTitle.textContent = title.textContent;
+  // В карточке крутится короткий отрывок, в просмотре — полная версия со звуком
+  lightboxVideo.src = card.dataset.full || source.getAttribute('src');
+  lightboxTitle.textContent = card.dataset.title || title.textContent;
   lightbox.hidden = false;
   document.body.classList.add('is-locked');
   lightboxClose.focus();
 
+  lightboxVideo.muted = false;
   const played = lightboxVideo.play();
-  if (played) played.catch(() => {});
+
+  if (played) {
+    played.catch(() => {
+      // Если браузер запретил звук без жеста — играем без него, звук вернёт кнопка в плеере
+      lightboxVideo.muted = true;
+      lightboxVideo.play().catch(() => {});
+    });
+  }
 };
 
 const closeLightbox = () => {
