@@ -30,7 +30,7 @@ if (explorer) {
     root: {
       title: 'Избранные работы',
       lead: 'Выберите направление, чтобы посмотреть подходящие кадры.',
-      folders: ['portrait', 'event', 'product', 'aerial'],
+      folders: ['portrait', 'event', 'product', 'commercial', 'aerial'],
       parent: null,
       crumbs: [{ id: 'root', label: 'Портфолио' }]
     },
@@ -54,6 +54,13 @@ if (explorer) {
       category: 'product',
       parent: 'root',
       crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'product', label: 'Предметная съёмка' }]
+    },
+    commercial: {
+      title: 'Коммерческая съёмка',
+      lead: 'Реклама, имидж бренда и промо для бизнеса.',
+      category: 'commercial',
+      parent: 'root',
+      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'commercial', label: 'Коммерческая съёмка' }]
     },
     aerial: {
       title: 'Аэросъёмка',
@@ -80,6 +87,7 @@ if (explorer) {
     portrait: 'portrait',
     event: 'event',
     product: 'product',
+    commercial: 'commercial',
     aerial: 'aerial',
     moskino: 'aerial/moskino'
   };

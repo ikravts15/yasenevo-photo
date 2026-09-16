@@ -58,8 +58,12 @@
           <button class="folder" type="button" data-go="product">
             <span class="folder__caption"><strong>Предметная съёмка</strong><span>Открыть</span></span>
           </button>
+          <button class="folder" type="button" data-go="commercial">
+            <video class="folder__media" src="videos/commercial-1-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="folder__caption"><strong>Коммерческая съёмка</strong><span>Открыть</span></span>
+          </button>
           <button class="folder" type="button" data-go="aerial">
-            <video class="folder__media" src="videos/aerial-5.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <video class="folder__media" src="videos/aerial-3.mp4" muted autoplay loop playsinline preload="none" aria-hidden="true"></video>
             <span class="folder__caption"><strong>Аэросъёмка</strong><span>Проекты</span></span>
           </button>
           <button class="folder" type="button" data-go="moskino" hidden>
@@ -78,6 +82,13 @@
           <figure class="shot" data-category="portrait" role="img" aria-label="Семейная съёмка: родители с детьми на портретной фотосессии">
             <figcaption class="shot__caption"><strong>Семейная съёмка</strong><span>Портреты</span></figcaption>
           </figure>
+          <figure class="shot shot--video" data-category="portrait" data-full="videos/portrait-1-full.mp4" data-title="Портреты — Свадьба">
+            <video class="shot__media" src="videos/portrait-1.mp4" muted loop playsinline preload="none" aria-label="Видео: свадьба и свадебное путешествие, короткий отрывок"></video>
+            <figcaption class="shot__caption"><strong>Свадьба и свадебное путешествие</strong><span>Портреты</span></figcaption>
+            <button class="shot__open" type="button" aria-label="Открыть полное видео: свадьба и свадебное путешествие">
+              <span class="shot__play" aria-hidden="true"></span>
+            </button>
+          </figure>
           <figure class="shot" data-category="event" role="img" aria-label="Корпоративное событие: репортажные кадры с делового мероприятия">
             <figcaption class="shot__caption"><strong>Корпоративное событие</strong><span>События</span></figcaption>
           </figure>
@@ -87,6 +98,20 @@
           <figure class="shot" data-category="event" role="img" aria-label="Конференция: спикер на сцене и работа зала в репортажной съёмке">
             <figcaption class="shot__caption"><strong>Конференция</strong><span>События</span></figcaption>
           </figure>
+          <figure class="shot shot--video" data-category="event" data-full="videos/event-4-full.mp4" data-title="События — День рождения">
+            <video class="shot__media" src="videos/event-4-preview.mp4" muted loop playsinline preload="none" aria-label="Видео: семейный день рождения ребёнка"></video>
+            <figcaption class="shot__caption"><strong>Семейный праздник</strong><span>События</span></figcaption>
+            <button class="shot__open" type="button" aria-label="Открыть полное видео: день рождения">
+              <span class="shot__play" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="shot shot--video" data-category="event" data-full="videos/event-5-full.mp4" data-title="События — Клуб">
+            <video class="shot__media" src="videos/event-5-preview.mp4" muted loop playsinline preload="none" aria-label="Видео: атмосфера клуба и диско-шар"></video>
+            <figcaption class="shot__caption"><strong>Атмосфера клуба</strong><span>События</span></figcaption>
+            <button class="shot__open" type="button" aria-label="Открыть полное видео: атмосфера клуба">
+              <span class="shot__play" aria-hidden="true"></span>
+            </button>
+          </figure>
           <figure class="shot" data-category="product" role="img" aria-label="Каталог для бренда: предметная съёмка товаров на однотонном фоне">
             <figcaption class="shot__caption"><strong>Каталог для бренда</strong><span>Предметная съёмка</span></figcaption>
           </figure>
@@ -95,6 +120,13 @@
           </figure>
           <figure class="shot" data-category="product" role="img" aria-label="Фуд-фотография: съёмка блюд для меню, сайта и доставки">
             <figcaption class="shot__caption"><strong>Фуд-фотография</strong><span>Предметная съёмка</span></figcaption>
+          </figure>
+          <figure class="shot shot--video" data-category="commercial" data-full="videos/commercial-1-full.mp4" data-title="Коммерческая съёмка — Lion Academy">
+            <video class="shot__media" src="videos/commercial-1-preview.mp4" muted loop playsinline preload="none" aria-label="Видео: рекламный промо-ролик школы единоборств Lion Academy"></video>
+            <figcaption class="shot__caption"><strong>Lion Academy</strong><span>Коммерческая съёмка</span></figcaption>
+            <button class="shot__open" type="button" aria-label="Открыть полное видео: Lion Academy">
+              <span class="shot__play" aria-hidden="true"></span>
+            </button>
           </figure>
           <figure class="shot shot--video" data-category="aerial" data-series="moskino" data-full="videos/aeroport-full.mp4" data-title="Аэросъёмка — Аэропорт">
             <video class="shot__media" src="videos/aerial-5.mp4" muted loop playsinline preload="none" aria-label="Видео: декорация аэропорта с высоты, съёмка с дрона"></video>
