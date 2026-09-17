@@ -1081,15 +1081,31 @@ section > .wrap { position: relative; z-index: 1; }
     padding-right: 20px;
   }
 
-  .folders,
-  .gallery,
-  #explorer {
-    justify-items: center;
+  .page-portfolio .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .folder,
-  .shot {
-    margin-inline: auto;
+  .page-portfolio .folders,
+  .page-portfolio .gallery,
+  .page-portfolio #explorer {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: stretch;
+    justify-items: stretch;
+  }
+
+  .page-portfolio .folder,
+  .page-portfolio .shot {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    max-height: none;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: stretch;
   }
 
   .hero__inner {
