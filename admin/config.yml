@@ -1,0 +1,70 @@
+backend:
+  name: github
+  repo: ikravts15/yasenevo-photo
+  branch: main
+  base_url: https://sveltia-cms-auth.ikravts15.workers.dev
+
+media_folder: "videos"
+public_folder: "videos"
+
+collections:
+  - name: "portfolio"
+    label: "Портфолио"
+    files:
+      - name: "catalog"
+        label: "Каталог работ"
+        file: "portfolio-data.json"
+        format: json
+        fields:
+          - { label: "Заголовок корня", name: "title", widget: "string" }
+          - { label: "Подзаголовок корня", name: "lead", widget: "string" }
+          - label: "Категории"
+            name: "categories"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Название", name: "title", widget: "string" }
+              - { label: "Описание раздела", name: "lead", widget: "string", required: false }
+              - { label: "Подпись на плитке", name: "caption", widget: "string", required: false }
+              - { label: "Превью плитки", name: "preview", widget: "file", required: false }
+              - { label: "Автовоспроизведение превью", name: "autoplay", widget: "boolean", required: false }
+              - label: "Работы в категории"
+                name: "items"
+                widget: "list"
+                required: false
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Название", name: "title", widget: "string" }
+                  - { label: "Заголовок lightbox", name: "lightboxTitle", widget: "string", required: false }
+                  - { label: "Превью (короткое видео)", name: "preview", widget: "file", required: false }
+                  - { label: "Полное видео", name: "full", widget: "file", required: false }
+                  - { label: "Автовоспроизведение превью", name: "autoplay", widget: "boolean", required: false }
+                  - { label: "ARIA-подпись", name: "aria", widget: "string", required: false }
+                  - { label: "Подпись кнопки открытия", name: "openLabel", widget: "string", required: false }
+              - label: "Подкатегории"
+                name: "folders"
+                widget: "list"
+                required: false
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "ID", name: "id", widget: "string" }
+                  - { label: "Название", name: "title", widget: "string" }
+                  - { label: "Описание раздела", name: "lead", widget: "string", required: false }
+                  - { label: "Подпись на плитке", name: "caption", widget: "string", required: false }
+                  - { label: "Превью плитки", name: "preview", widget: "file", required: false }
+                  - { label: "Заглушка без перехода", name: "stub", widget: "boolean", required: false }
+                  - { label: "ARIA-подпись", name: "aria", widget: "string", required: false }
+                  - label: "Работы в подкатегории"
+                    name: "items"
+                    widget: "list"
+                    required: false
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "Название", name: "title", widget: "string" }
+                      - { label: "Заголовок lightbox", name: "lightboxTitle", widget: "string", required: false }
+                      - { label: "Превью (короткое видео)", name: "preview", widget: "file", required: false }
+                      - { label: "Полное видео", name: "full", widget: "file", required: false }
+                      - { label: "Автовоспроизведение превью", name: "autoplay", widget: "boolean", required: false }
+                      - { label: "ARIA-подпись", name: "aria", widget: "string", required: false }
+                      - { label: "Подпись кнопки открытия", name: "openLabel", widget: "string", required: false }
