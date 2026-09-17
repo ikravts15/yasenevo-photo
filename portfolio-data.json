@@ -8,12 +8,14 @@
       "lead": "Реклама, имидж бренда и промо для бизнеса.",
       "caption": "Открыть",
       "preview": "videos/commercial-1-preview.mp4",
+      "autoplay": false,
       "items": [
         {
           "title": "Lion Academy",
           "lightboxTitle": "Коммерческая съёмка — Lion Academy",
           "preview": "videos/commercial-1-preview.mp4",
           "full": "videos/commercial-1-full.mp4",
+          "autoplay": false,
           "aria": "Видео: рекламный промо-ролик школы единоборств Lion Academy",
           "openLabel": "Открыть полное видео: Lion Academy"
         },
@@ -28,14 +30,15 @@
         },
         {
           "title": "Бабушкино лукошко",
-          "lightboxTitle": "Коммерческая съёмка — Бабушкино лукошко",
+          "lightboxTitle": "Коммерческая съёмка — \"Бабушкино лукошко\"",
           "preview": "videos/babushkino-1.mp4",
           "full": "videos/babushkino-1-full.mp4",
           "autoplay": true,
           "aria": "Видео: рекламный ролик бренда детского питания Бабушкино лукошко",
           "openLabel": "Открыть полное видео: Бабушкино лукошко"
         }
-      ]
+      ],
+      "folders": []
     },
     {
       "id": "event",
@@ -44,6 +47,7 @@
       "caption": "Открыть",
       "preview": "videos/portrait-2.mp4",
       "autoplay": true,
+      "items": [],
       "folders": [
         {
           "id": "corporate",
@@ -51,12 +55,15 @@
           "lead": "Репортаж с мероприятий и корпоративов.",
           "caption": "Открыть",
           "preview": "videos/event-5-preview.mp4",
+          "stub": false,
+          "aria": "",
           "items": [
             {
               "title": "Семейный праздник",
               "lightboxTitle": "Корпоративное событие — День рождения",
               "preview": "videos/event-4-preview.mp4",
               "full": "videos/event-4-full.mp4",
+              "autoplay": false,
               "aria": "Видео: семейный день рождения ребёнка",
               "openLabel": "Открыть полное видео: день рождения"
             },
@@ -65,6 +72,7 @@
               "lightboxTitle": "Корпоративное событие — Клуб",
               "preview": "videos/event-5-preview.mp4",
               "full": "videos/event-5-full.mp4",
+              "autoplay": false,
               "aria": "Видео: атмосфера клуба и диско-шар",
               "openLabel": "Открыть полное видео: атмосфера клуба"
             }
@@ -76,12 +84,15 @@
           "lead": "Свадьба и свадебное путешествие.",
           "caption": "Открыть",
           "preview": "videos/portrait-1.mp4",
+          "stub": false,
+          "aria": "",
           "items": [
             {
               "title": "Свадебное путешествие",
               "lightboxTitle": "Свадебный репортаж — Свадебное путешествие",
               "preview": "videos/portrait-1.mp4",
               "full": "videos/portrait-1-full.mp4",
+              "autoplay": false,
               "aria": "Видео: свадебное путешествие, короткий отрывок",
               "openLabel": "Открыть полное видео: свадебное путешествие"
             },
@@ -90,6 +101,7 @@
               "lightboxTitle": "Свадебный репортаж — Свадьба Мария и Антон",
               "preview": "videos/portrait-2.mp4",
               "full": "videos/portrait-2-full.mp4",
+              "autoplay": false,
               "aria": "Видео: свадебный репортаж, короткий отрывок",
               "openLabel": "Открыть полное видео: свадьба Мария и Антон"
             }
@@ -101,12 +113,15 @@
           "lead": "Живые кадры семьи — дома, в поездке и у костра.",
           "caption": "Открыть",
           "preview": "videos/family-1.mp4",
+          "stub": false,
+          "aria": "",
           "items": [
             {
               "title": "У воды и костра",
               "lightboxTitle": "Семейные съёмки — У костра",
               "preview": "videos/family-1.mp4",
               "full": "videos/family-1-full.mp4",
+              "autoplay": false,
               "aria": "Видео: семья у воды и костра",
               "openLabel": "Открыть полное видео: семья у костра"
             }
@@ -115,9 +130,12 @@
         {
           "id": "conference",
           "title": "Конференция",
+          "lead": "",
           "caption": "Скоро",
+          "preview": "",
           "stub": true,
-          "aria": "Конференция, материалы появятся позже"
+          "aria": "Конференция, материалы появятся позже",
+          "items": []
         }
       ]
     },
@@ -155,12 +173,15 @@
           "lead": "Кинопарк Москино: декорации с воздуха и с земли.",
           "caption": "Кинопарк, 7 роликов",
           "preview": "videos/aerial-6.mp4",
+          "stub": false,
+          "aria": "",
           "items": [
             {
               "title": "Декорация аэропорта",
               "lightboxTitle": "Аэросъёмка с дрона — Аэропорт",
               "preview": "videos/aerial-5.mp4",
               "full": "videos/aeroport-full.mp4",
+              "autoplay": false,
               "aria": "Видео: декорация аэропорта с высоты, съёмка с дрона",
               "openLabel": "Открыть полное видео: аэросъёмка, Аэропорт"
             },
@@ -169,6 +190,7 @@
               "lightboxTitle": "Аэросъёмка с дрона — Арканар",
               "preview": "videos/aerial-6.mp4",
               "full": "videos/arkanar-full.mp4",
+              "autoplay": false,
               "aria": "Видео: каменная крепость с воздуха, съёмка с дрона",
               "openLabel": "Открыть полное видео: аэросъёмка, Арканар"
             },
@@ -177,6 +199,7 @@
               "lightboxTitle": "Аэросъёмка с дрона — Буратино",
               "preview": "videos/aerial-7.mp4",
               "full": "videos/buratino-full.mp4",
+              "autoplay": false,
               "aria": "Видео: деревня с черепичными крышами с высоты, съёмка с дрона",
               "openLabel": "Открыть полное видео: аэросъёмка, Буратино"
             },
@@ -185,6 +208,7 @@
               "lightboxTitle": "Аэросъёмка с дрона — Княгиня Ольга",
               "preview": "videos/aerial-8.mp4",
               "full": "videos/knyaginaolga-full.mp4",
+              "autoplay": false,
               "aria": "Видео: древнерусское поселение с деревянными постройками с высоты",
               "openLabel": "Открыть полное видео: аэросъёмка, Княгиня Ольга"
             },
@@ -193,6 +217,7 @@
               "lightboxTitle": "Аэросъёмка с дрона — Гонзаго",
               "preview": "videos/product-1.mp4",
               "full": "videos/gonzago-full.mp4",
+              "autoplay": false,
               "aria": "Видео: театральный зал с красным занавесом и сценой",
               "openLabel": "Открыть полное видео: аэросъёмка, Гонзаго"
             },
@@ -201,6 +226,7 @@
               "lightboxTitle": "Аэросъёмка с дрона — Москва",
               "preview": "videos/product-2.mp4",
               "full": "videos/moskva-full.mp4",
+              "autoplay": false,
               "aria": "Видео: уличная декорация старого города после дождя",
               "openLabel": "Открыть полное видео: аэросъёмка, Москва"
             },
@@ -209,6 +235,7 @@
               "lightboxTitle": "Аэросъёмка с дрона — Вокзал",
               "preview": "videos/product-3.mp4",
               "full": "videos/vokzal-full.mp4",
+              "autoplay": false,
               "aria": "Видео: фасад вокзала и перрон в декорациях",
               "openLabel": "Открыть полное видео: аэросъёмка, Вокзал"
             }
@@ -221,36 +248,67 @@
       "title": "Портретная съёмка",
       "lead": "Студийные и локационные портреты.",
       "caption": "Открыть",
+      "preview": "",
+      "autoplay": false,
       "items": [
         {
           "title": "Студийный портрет",
-          "aria": "Студийный портрет: портретная съёмка в студии с мягким постановочным светом"
+          "lightboxTitle": "",
+          "preview": "",
+          "full": "",
+          "autoplay": false,
+          "aria": "Студийный портрет: портретная съёмка в студии с мягким постановочным светом",
+          "openLabel": ""
         },
         {
           "title": "Портрет на локации",
-          "aria": "Портрет на локации: съёмка на улице при естественном свете"
+          "lightboxTitle": "",
+          "preview": "",
+          "full": "",
+          "autoplay": false,
+          "aria": "Портрет на локации: съёмка на улице при естественном свете",
+          "openLabel": ""
         }
-      ]
+      ],
+      "folders": []
     },
     {
       "id": "product",
       "title": "Предметная съёмка",
       "lead": "Каталоги, украшения и съёмка для брендов.",
       "caption": "Открыть",
+      "preview": "",
+      "autoplay": false,
       "items": [
         {
           "title": "Каталог для бренда",
-          "aria": "Каталог для бренда: предметная съёмка товаров на однотонном фоне"
+          "lightboxTitle": "",
+          "preview": "",
+          "full": "",
+          "autoplay": false,
+          "aria": "Каталог для бренда: предметная съёмка товаров на однотонном фоне",
+          "openLabel": ""
         },
         {
           "title": "Съёмка украшений",
-          "aria": "Съёмка украшений: крупный план ювелирных изделий с контролем блика"
+          "lightboxTitle": "",
+          "preview": "",
+          "full": "",
+          "autoplay": false,
+          "aria": "Съёмка украшений: крупный план ювелирных изделий с контролем блика",
+          "openLabel": ""
         },
         {
           "title": "Фуд-фотография",
-          "aria": "Фуд-фотография: съёмка блюд для меню, сайта и доставки"
+          "lightboxTitle": "",
+          "preview": "",
+          "full": "",
+          "autoplay": false,
+          "aria": "Фуд-фотография: съёмка блюд для меню, сайта и доставки",
+          "openLabel": ""
         }
-      ]
+      ],
+      "folders": []
     }
   ]
 }
