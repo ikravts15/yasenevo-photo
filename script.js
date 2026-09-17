@@ -403,7 +403,7 @@ if (lightbox) {
   });
 }
 
-// Форма: пока только проверка полей, без отправки
+// Форма заявки: проверка полей и отправка в Formspree без перезагрузки
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
 
@@ -417,6 +417,26 @@ if (form) {
       return;
     }
 
-    status.textContent = 'Форма заполнена. Отправка будет подключена позже.';
+    const submitBtn = form.querySelector('[type="submit"]');
+    submitBtn.disabled = true;
+    status.textContent = 'Отправляю…';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error();
+
+        form.querySelectorAll('.field, .form__hint, [type="submit"]').forEach((el) => {
+          el.hidden = true;
+        });
+        status.textContent = 'Спасибо! Я свяжусь с вами в ближайшее время.';
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        status.textContent = 'Не получилось отправить. Напишите, пожалуйста, другим способом.';
+      });
   });
 }
