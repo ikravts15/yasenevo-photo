@@ -22,130 +22,206 @@ navLinks.addEventListener('click', (e) => {
   }
 });
 
-// Проводник портфолио: папки → проекты → карточки
-const explorer = document.getElementById('explorer');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (explorer) {
+const previewObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    const video = entry.target;
+
+    if (entry.isIntersecting) {
+      const played = video.play();
+      if (played) played.catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+}, { rootMargin: '100px 0px', threshold: 0.2 });
+
+const bindPreviewVideos = (scope) => {
+  scope.querySelectorAll('.shot__media, .folder__media').forEach((video) => {
+    if (reducedMotion) {
+      video.preload = 'metadata';
+      video.load();
+      return;
+    }
+
+    previewObserver.observe(video);
+  });
+};
+
+const makePreviewVideo = (src, { autoplay = false, aria } = {}) => {
+  const video = document.createElement('video');
+  video.src = src;
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.preload = 'none';
+  video.setAttribute('playsinline', '');
+  video.setAttribute('muted', '');
+  if (autoplay) video.setAttribute('autoplay', '');
+  if (aria) video.setAttribute('aria-label', aria);
+  else video.setAttribute('aria-hidden', 'true');
+  return video;
+};
+
+const makeFolderButton = (node) => {
+  const btn = document.createElement('button');
+  btn.className = 'folder';
+  btn.type = 'button';
+  btn.dataset.go = node.id;
+  btn.hidden = true;
+
+  if (node.stub) {
+    btn.dataset.stub = '';
+    btn.setAttribute('aria-label', node.aria || `${node.title}, материалы появятся позже`);
+  }
+
+  if (node.preview) {
+    const video = makePreviewVideo(node.preview, { autoplay: Boolean(node.autoplay) });
+    video.className = 'folder__media';
+    btn.append(video);
+  }
+
+  const caption = document.createElement('span');
+  caption.className = 'folder__caption';
+  const title = document.createElement('strong');
+  title.textContent = node.title;
+  const note = document.createElement('span');
+  note.textContent = node.caption || 'Открыть';
+  caption.append(title, note);
+  btn.append(caption);
+  return btn;
+};
+
+const makeShotCard = (item, category, folder) => {
+  const figure = document.createElement('figure');
+  figure.className = item.preview ? 'shot shot--video' : 'shot';
+  figure.dataset.category = category.id;
+  if (folder) figure.dataset.series = folder.id;
+
+  if (item.full) {
+    figure.dataset.full = item.full;
+    figure.dataset.title = item.lightboxTitle || `${category.title} — ${item.title}`;
+  } else {
+    figure.setAttribute('role', 'img');
+    if (item.aria) figure.setAttribute('aria-label', item.aria);
+  }
+
+  if (item.preview) {
+    const video = makePreviewVideo(item.preview, {
+      autoplay: Boolean(item.autoplay),
+      aria: item.aria
+    });
+    video.className = 'shot__media';
+    figure.append(video);
+  }
+
+  const caption = document.createElement('figcaption');
+  caption.className = 'shot__caption';
+  const title = document.createElement('strong');
+  title.textContent = item.title;
+  const label = document.createElement('span');
+  label.textContent = folder ? folder.title : category.title;
+  caption.append(title, label);
+  figure.append(caption);
+
+  if (item.full) {
+    const open = document.createElement('button');
+    open.className = 'shot__open';
+    open.type = 'button';
+    open.setAttribute('aria-label', item.openLabel || `Открыть полное видео: ${item.title}`);
+    const play = document.createElement('span');
+    play.className = 'shot__play';
+    play.setAttribute('aria-hidden', 'true');
+    open.append(play);
+    figure.append(open);
+  }
+
+  return figure;
+};
+
+const buildViews = (data) => {
   const views = {
     root: {
-      title: 'Избранные работы',
-      lead: 'Выберите направление, чтобы посмотреть подходящие кадры.',
-      folders: ['commercial', 'event', 'aerial', 'portrait', 'product'],
+      title: data.title,
+      lead: data.lead,
+      folders: data.categories.map((category) => category.id),
       parent: null,
       crumbs: [{ id: 'root', label: 'Портфолио' }]
-    },
-    portrait: {
-      title: 'Портретная съёмка',
-      lead: 'Студийные и локационные портреты.',
-      category: 'portrait',
-      parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'portrait', label: 'Портретная съёмка' }]
-    },
-    event: {
-      title: 'Репортаж и события',
-      lead: 'Выберите проект.',
-      folders: ['corporate', 'wedding', 'family', 'conference'],
-      parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'event', label: 'Репортаж и события' }]
-    },
-    product: {
-      title: 'Предметная съёмка',
-      lead: 'Каталоги, украшения и съёмка для брендов.',
-      category: 'product',
-      parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'product', label: 'Предметная съёмка' }]
-    },
-    commercial: {
-      title: 'Коммерческая съёмка',
-      lead: 'Реклама, имидж бренда и промо для бизнеса.',
-      category: 'commercial',
-      parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'commercial', label: 'Коммерческая съёмка' }]
-    },
-    aerial: {
-      title: 'Аэросъёмка с дрона',
-      lead: 'Выберите проект.',
-      folders: ['moskino'],
-      category: 'aerial',
-      parent: 'root',
-      crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'aerial', label: 'Аэросъёмка с дрона' }]
-    },
-    moskino: {
-      title: 'Москино',
-      lead: 'Кинопарк Москино: декорации с воздуха и с земли.',
-      series: 'moskino',
-      parent: 'aerial',
-      crumbs: [
-        { id: 'root', label: 'Портфолио' },
-        { id: 'aerial', label: 'Аэросъёмка с дрона' },
-        { id: 'moskino', label: 'Москино' }
-      ]
-    },
-    corporate: {
-      title: 'Корпоративное событие',
-      lead: 'Репортаж с мероприятий и корпоративов.',
-      series: 'corporate',
-      parent: 'event',
-      crumbs: [
-        { id: 'root', label: 'Портфолио' },
-        { id: 'event', label: 'Репортаж и события' },
-        { id: 'corporate', label: 'Корпоративное событие' }
-      ]
-    },
-    wedding: {
-      title: 'Свадебный репортаж',
-      lead: 'Свадьба и свадебное путешествие.',
-      series: 'wedding',
-      parent: 'event',
-      crumbs: [
-        { id: 'root', label: 'Портфолио' },
-        { id: 'event', label: 'Репортаж и события' },
-        { id: 'wedding', label: 'Свадебный репортаж' }
-      ]
-    },
-    family: {
-      title: 'Семейные съёмки',
-      lead: 'Живые кадры семьи — дома, в поездке и у костра.',
-      series: 'family',
-      parent: 'event',
-      crumbs: [
-        { id: 'root', label: 'Портфолио' },
-        { id: 'event', label: 'Репортаж и события' },
-        { id: 'family', label: 'Семейные съёмки' }
-      ]
     }
   };
+  const hashes = { root: '' };
 
-  const hashes = {
-    root: '',
-    portrait: 'portrait',
-    event: 'event',
-    product: 'product',
-    commercial: 'commercial',
-    aerial: 'aerial',
-    moskino: 'aerial/moskino',
-    corporate: 'event/corporate',
-    wedding: 'event/wedding',
-    family: 'event/family'
-  };
+  data.categories.forEach((category) => {
+    hashes[category.id] = category.id;
+    const view = {
+      title: category.title,
+      lead: category.lead,
+      parent: 'root',
+      crumbs: [
+        { id: 'root', label: 'Портфолио' },
+        { id: category.id, label: category.title }
+      ]
+    };
 
+    if (category.folders?.length) view.folders = category.folders.map((folder) => folder.id);
+    if (category.items?.length) view.category = category.id;
+    views[category.id] = view;
+
+    (category.folders || []).forEach((folder) => {
+      if (folder.stub) return;
+      hashes[folder.id] = `${category.id}/${folder.id}`;
+      views[folder.id] = {
+        title: folder.title,
+        lead: folder.lead,
+        series: folder.id,
+        parent: category.id,
+        crumbs: [
+          { id: 'root', label: 'Портфолио' },
+          { id: category.id, label: category.title },
+          { id: folder.id, label: folder.title }
+        ]
+      };
+    });
+  });
+
+  return { views, hashes };
+};
+
+const initPortfolio = (data) => {
+  const explorer = document.getElementById('explorer');
   const foldersWrap = document.getElementById('folders');
   const gallery = document.getElementById('gallery');
-  const shots = document.querySelectorAll('.shot');
-  const folderButtons = document.querySelectorAll('.folder');
   const backBtn = document.getElementById('explorerBack');
   const crumbsPath = document.getElementById('crumbsPath');
   const titleEl = document.getElementById('explorerTitle');
   const leadEl = document.getElementById('explorerLead');
+  const { views, hashes } = buildViews(data);
   let currentView = 'root';
+
+  data.categories.forEach((category) => {
+    foldersWrap.append(makeFolderButton(category));
+    (category.folders || []).forEach((folder) => {
+      foldersWrap.append(makeFolderButton(folder));
+    });
+    (category.items || []).forEach((item) => {
+      gallery.append(makeShotCard(item, category));
+    });
+    (category.folders || []).forEach((folder) => {
+      (folder.items || []).forEach((item) => {
+        gallery.append(makeShotCard(item, category, folder));
+      });
+    });
+  });
+
+  const folderButtons = foldersWrap.querySelectorAll('.folder');
+  const shots = gallery.querySelectorAll('.shot');
 
   const viewFromHash = () => {
     const hash = location.hash.replace(/^#/, '');
-    if (hash === 'aerial/moskino' || hash === 'moskino') return 'moskino';
-    if (hash === 'event/corporate' || hash === 'corporate') return 'corporate';
-    if (hash === 'event/wedding' || hash === 'wedding') return 'wedding';
-    if (hash === 'event/family' || hash === 'family') return 'family';
     if (views[hash]) return hash;
+    const last = hash.split('/').pop();
+    if (last && views[last]) return last;
     return 'root';
   };
 
@@ -156,7 +232,7 @@ if (explorer) {
         video.pause();
         return;
       }
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (reducedMotion) return;
       const played = video.play();
       if (played) played.catch(() => {});
     });
@@ -244,7 +320,25 @@ if (explorer) {
   });
 
   window.addEventListener('hashchange', () => renderView(viewFromHash()));
+  bindPreviewVideos(explorer);
   renderView(viewFromHash());
+};
+
+const explorer = document.getElementById('explorer');
+
+if (explorer) {
+  fetch('portfolio-data.json?v=1')
+    .then((response) => {
+      if (!response.ok) throw new Error('portfolio-data.json');
+      return response.json();
+    })
+    .then(initPortfolio)
+    .catch(() => {
+      const titleEl = document.getElementById('explorerTitle');
+      const leadEl = document.getElementById('explorerLead');
+      if (titleEl) titleEl.textContent = 'Портфолио';
+      if (leadEl) leadEl.textContent = 'Не получилось загрузить каталог. Обновите страницу.';
+    });
 }
 
 // Активный пункт меню по видимой секции
@@ -278,7 +372,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
 // Фоновые видео: играет только то, чей раздел на экране
 const bgVideos = document.querySelectorAll('.section-bg__media');
 
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+if (reducedMotion) {
   bgVideos.forEach((video) => {
     video.autoplay = false;
     video.pause();
@@ -300,44 +394,6 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   bgVideos.forEach((video) => videoObserver.observe(video));
 }
 
-// Видео-карточки портфолио: превью в сетке и просмотр по клику
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const shotVideos = document.querySelectorAll('.shot__media');
-
-const previewObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    const video = entry.target;
-
-    if (entry.isIntersecting) {
-      const played = video.play();
-      if (played) played.catch(() => {});
-    } else {
-      video.pause();
-    }
-  });
-}, { rootMargin: '100px 0px', threshold: 0.2 });
-
-shotVideos.forEach((video) => {
-  if (reducedMotion) {
-    // Без анимации показываем только первый кадр
-    video.preload = 'metadata';
-    video.load();
-    return;
-  }
-
-  previewObserver.observe(video);
-});
-
-document.querySelectorAll('.folder__media').forEach((video) => {
-  if (reducedMotion) {
-    video.preload = 'metadata';
-    video.load();
-    return;
-  }
-
-  previewObserver.observe(video);
-});
-
 const lightbox = document.getElementById('lightbox');
 
 if (lightbox) {
@@ -352,12 +408,11 @@ if (lightbox) {
     const title = card.querySelector('.shot__caption strong');
 
     lastFocused = document.activeElement;
-    pausedPreviews = [...shotVideos].filter((video) => !video.paused);
+    pausedPreviews = [...document.querySelectorAll('.shot__media')].filter((video) => !video.paused);
     pausedPreviews.forEach((video) => video.pause());
 
-    // В карточке крутится короткий отрывок, в просмотре — полная версия со звуком
-    lightboxVideo.src = card.dataset.full || source.getAttribute('src');
-    lightboxTitle.textContent = card.dataset.title || title.textContent;
+    lightboxVideo.src = card.dataset.full || (source && source.getAttribute('src'));
+    lightboxTitle.textContent = card.dataset.title || (title && title.textContent) || '';
     lightbox.hidden = false;
     document.body.classList.add('is-locked');
     lightboxClose.focus();
@@ -389,8 +444,11 @@ if (lightbox) {
     if (lastFocused) lastFocused.focus();
   };
 
-  document.querySelectorAll('.shot__open').forEach((btn) => {
-    btn.addEventListener('click', () => openLightbox(btn.closest('.shot')));
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.shot__open');
+    if (!btn) return;
+    const card = btn.closest('.shot');
+    if (card) openLightbox(card);
   });
 
   lightboxClose.addEventListener('click', closeLightbox);
@@ -403,6 +461,8 @@ if (lightbox) {
     if (!lightbox.hidden && e.key === 'Escape') closeLightbox();
   });
 }
+
+if (!explorer) bindPreviewVideos(document);
 
 // Форма заявки: проверка полей и отправка в Formspree без перезагрузки
 const form = document.getElementById('contactForm');
