@@ -498,7 +498,7 @@ if (form) {
 
         const portfolio = document.createElement('a');
         portfolio.className = 'btn';
-        portfolio.href = 'portfolio/';
+        portfolio.href = '/portfolio/';
         portfolio.textContent = 'Смотреть портфолио';
         form.append(portfolio);
       })
