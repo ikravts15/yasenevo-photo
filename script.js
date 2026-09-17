@@ -66,6 +66,7 @@ if (explorer) {
       title: 'Аэросъёмка с дрона',
       lead: 'Выберите проект.',
       folders: ['moskino'],
+      category: 'aerial',
       parent: 'root',
       crumbs: [{ id: 'root', label: 'Портфолио' }, { id: 'aerial', label: 'Аэросъёмка с дрона' }]
     },
