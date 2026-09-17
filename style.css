@@ -551,6 +551,7 @@ section { padding: 104px 0; }
 .folder__media {
   position: absolute;
   inset: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -561,7 +562,7 @@ section { padding: 104px 0; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(14, 14, 16, .85) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(14, 14, 16, .85) 0%, transparent 60%);
 }
 
 .folder__caption {
@@ -592,6 +593,41 @@ section { padding: 104px 0; }
 .gallery[hidden] { display: none; }
 
 .folders:not([hidden]) + .gallery:not([hidden]) { margin-top: 20px; }
+
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .folders,
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .gallery {
+  display: contents;
+}
+
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .folders:not([hidden]) + .gallery:not([hidden]) {
+  margin-top: 0;
+}
+
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .folder,
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .shot:not([hidden]) {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  margin: 0;
+  min-width: 0;
+}
+
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .folder__caption strong,
+#explorer:has(.folder[data-go="moskino"]:not([hidden])) .shot__caption strong {
+  font-size: 19px;
+}
+
+@media (max-width: 767px) {
+  #explorer:has(.folder[data-go="moskino"]:not([hidden])) {
+    grid-template-columns: 1fr;
+  }
+}
 
 .shot {
   position: relative;
