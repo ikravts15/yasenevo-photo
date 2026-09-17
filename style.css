@@ -489,7 +489,7 @@ section { padding: 104px 0; }
 
 .folders {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -498,6 +498,8 @@ section { padding: 104px 0; }
 .folder {
   position: relative;
   aspect-ratio: 4 / 3;
+  max-width: 320px;
+  max-height: 220px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -530,30 +532,13 @@ section { padding: 104px 0; }
   aspect-ratio: 16 / 10;
 }
 
-@media (min-width: 1200px) {
-  .folders:has(.folder[data-go="conference"]:not([hidden])) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1199px) {
-  .folders:has(.folder[data-go="conference"]:not([hidden])) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 767px) {
-  .folders:has(.folder[data-go="conference"]:not([hidden])) {
-    grid-template-columns: 1fr;
-  }
-}
-
 .folder__media {
   position: absolute;
   inset: 0;
   z-index: 0;
   width: 100%;
   height: 100%;
+  max-height: 220px;
   object-fit: cover;
   display: block;
 }
@@ -586,7 +571,7 @@ section { padding: 104px 0; }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -596,7 +581,7 @@ section { padding: 104px 0; }
 
 #explorer:has(.folder[data-go="moskino"]:not([hidden])) {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   align-items: stretch;
 }
@@ -613,7 +598,6 @@ section { padding: 104px 0; }
 #explorer:has(.folder[data-go="moskino"]:not([hidden])) .folder,
 #explorer:has(.folder[data-go="moskino"]:not([hidden])) .shot:not([hidden]) {
   aspect-ratio: 4 / 3;
-  width: 100%;
   margin: 0;
   min-width: 0;
 }
@@ -623,19 +607,16 @@ section { padding: 104px 0; }
   font-size: 19px;
 }
 
-@media (max-width: 767px) {
-  #explorer:has(.folder[data-go="moskino"]:not([hidden])) {
-    grid-template-columns: 1fr;
-  }
-}
-
 .shot {
   position: relative;
+  margin: 0;
+  max-width: 320px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   background: linear-gradient(140deg, #262630, #191920);
   aspect-ratio: 4 / 3;
+  max-height: 220px;
   display: flex;
   align-items: flex-end;
   padding: 20px;
@@ -682,6 +663,7 @@ section { padding: 104px 0; }
   z-index: 0;
   width: 100%;
   height: 100%;
+  max-height: 220px;
   object-fit: cover;
   display: block;
   background: #101014;
@@ -1085,8 +1067,8 @@ section > .wrap { position: relative; z-index: 1; }
   section { padding: 64px 0; }
   .section-head { margin-bottom: 36px; }
   .about__list { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: 1fr; }
-  .folders { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .folders { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
   .form { padding: 28px 20px; }
   .hero__meta { gap: 20px 32px; }
   .btn { width: 100%; }
