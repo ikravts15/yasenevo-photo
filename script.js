@@ -23,6 +23,7 @@ navLinks.addEventListener('click', (e) => {
 });
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const siteRoot = document.body.classList.contains('page-portfolio') ? '../' : '';
 
 const previewObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -51,7 +52,7 @@ const bindPreviewVideos = (scope) => {
 
 const makePreviewVideo = (src, { autoplay = false, aria } = {}) => {
   const video = document.createElement('video');
-  video.src = src;
+  video.src = siteRoot + src;
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
@@ -100,7 +101,7 @@ const makeShotCard = (item, category, folder) => {
   if (folder) figure.dataset.series = folder.id;
 
   if (item.full) {
-    figure.dataset.full = item.full;
+    figure.dataset.full = siteRoot + item.full;
     figure.dataset.title = item.lightboxTitle || `${category.title} — ${item.title}`;
   } else {
     figure.setAttribute('role', 'img');
@@ -327,7 +328,7 @@ const initPortfolio = (data) => {
 const explorer = document.getElementById('explorer');
 
 if (explorer) {
-  fetch('portfolio-data.json?v=1')
+  fetch(`${siteRoot}portfolio-data.json?v=1`)
     .then((response) => {
       if (!response.ok) throw new Error('portfolio-data.json');
       return response.json();
@@ -497,7 +498,7 @@ if (form) {
 
         const portfolio = document.createElement('a');
         portfolio.className = 'btn';
-        portfolio.href = 'portfolio.html';
+        portfolio.href = 'portfolio/';
         portfolio.textContent = 'Смотреть портфолио';
         form.append(portfolio);
       })
