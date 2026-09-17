@@ -430,9 +430,15 @@ if (form) {
         if (!response.ok) throw new Error();
 
         form.querySelectorAll('.field, .form__hint, [type="submit"]').forEach((el) => {
-          el.hidden = true;
+          el.remove();
         });
         status.textContent = 'Спасибо! Я свяжусь с вами в ближайшее время.';
+
+        const portfolio = document.createElement('a');
+        portfolio.className = 'btn';
+        portfolio.href = 'portfolio.html';
+        portfolio.textContent = 'Смотреть портфолио';
+        form.append(portfolio);
       })
       .catch(() => {
         submitBtn.disabled = false;

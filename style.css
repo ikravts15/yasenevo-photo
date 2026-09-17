@@ -932,6 +932,8 @@ body.is-locked { overflow: hidden; }
 
 .form .btn { width: 100%; }
 
+.form__status + .btn { margin-top: 20px; }
+
 .form__status {
   margin: 16px 0 0;
   font-size: 14px;
