@@ -328,7 +328,7 @@ const initPortfolio = (data) => {
 const explorer = document.getElementById('explorer');
 
 if (explorer) {
-  fetch(`${siteRoot}portfolio-data.json?v=1`)
+  fetch(`${siteRoot}portfolio-data.json?v=2`)
     .then((response) => {
       if (!response.ok) throw new Error('portfolio-data.json');
       return response.json();
